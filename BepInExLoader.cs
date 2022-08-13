@@ -82,26 +82,26 @@ namespace RF5.HisaCat.BetterSorting
                 BepInExLog.LogError($"- ItemDataLinkers.ItemID: {string.Join(",", __instance.ItemDataLinkers.Select(x => x.ItemData == null ? "NULL" : x.ItemData.ItemID.ToString()))}");
 
                 //Sort wayas A
-                {
-                    //Sort ItemDatas only.
-                    //Idk how, but in this case, ItemDataLinkers's items order is automatically follows ItemDatas
+                //{
+                //    //Sort ItemDatas only.
+                //    //Idk how, but in this case, ItemDataLinkers's items order is automatically follows ItemDatas
 
-                    var existItems = __instance.ItemDatas.Where(x => x != null).ToArray();
-                    int existItemsCount = existItems.Length;
+                //    var existItems = __instance.ItemDatas.Where(x => x != null).ToArray();
+                //    int existItemsCount = existItems.Length;
 
-                    //Do custom sort with linq
-                    existItems = existItems.OrderBy(x => x.Amount).ToArray();
+                //    //Do custom sort with linq
+                //    existItems = existItems.OrderBy(x => x.Amount).ToArray();
 
-                    int count = __instance.ItemDatas.Count;
-                    for (int i = 0; i < existItemsCount; i++)
-                    {
-                        __instance.ItemDatas[i] = existItems[i];
-                    }
-                    for (int i = existItemsCount; i < count; i++)
-                    {
-                        __instance.ItemDatas[i] = null;
-                    }
-                }
+                //    int count = __instance.ItemDatas.Count;
+                //    for (int i = 0; i < existItemsCount; i++)
+                //    {
+                //        __instance.ItemDatas[i] = existItems[i];
+                //    }
+                //    for (int i = existItemsCount; i < count; i++)
+                //    {
+                //        __instance.ItemDatas[i] = null;
+                //    }
+                //}
                 //Sort ways B:
                 {
                     //Sort ItemDatas and ItemDataLinkers both via pair.
