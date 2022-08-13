@@ -82,56 +82,24 @@ namespace RF5.HisaCat.BetterSorting
                 BepInExLog.LogError($"- ItemDataLinkers.ItemID: {string.Join(",", __instance.ItemDataLinkers.Select(x => x.ItemData == null ? "NULL" : x.ItemData.ItemID.ToString()))}");
 
                 //Sort wayas A
-                //{
-                //    //Sort ItemDatas only.
-                //    //Idk how, but in this case, ItemDataLinkers's items order is automatically follows ItemDatas
-
-                //    var existItems = __instance.ItemDatas.Where(x => x != null).ToArray();
-                //    int existItemsCount = existItems.Length;
-
-                //    //Do custom sort with linq
-                //    existItems = existItems.OrderBy(x => x.Amount).ToArray();
-
-                //    int count = __instance.ItemDatas.Count;
-                //    for (int i = 0; i < existItemsCount; i++)
-                //    {
-                //        __instance.ItemDatas[i] = existItems[i];
-                //    }
-                //    for (int i = existItemsCount; i < count; i++)
-                //    {
-                //        __instance.ItemDatas[i] = null;
-                //    }
-                //}
-                //Sort ways B:
                 {
-                    //Sort ItemDatas and ItemDataLinkers both via pair.
+                    //Sort ItemDatas only.
+                    //Do not care about ItemDataLinkers
 
-                    if (__instance.ItemDatas.Count != __instance.ItemDataLinkers.Count)
-                    {
-                        BepInExLog.LogError("ItemDatas and ItemDataLinkers count mismatched!");
-                        return;
-                    }
-
-                    var count = __instance.ItemDatas.Count;
-                    var itemsPair = new List<KeyValuePair<ItemData, ItemDataLinker>>();
-                    for (int i = 0; i < count; i++)
-                        itemsPair.Add(new KeyValuePair<ItemData, ItemDataLinker>(__instance.ItemDatas[i], __instance.ItemDataLinkers[i]));
-
-                    var existItemsPair = itemsPair.Where(x => x.Key != null).ToArray();
+                    var existItems = __instance.ItemDatas.Where(x => x != null).ToArray();
+                    int existItemsCount = existItems.Length;
 
                     //Do custom sort with linq
-                    existItemsPair = existItemsPair.OrderBy(x => x.Key.Amount).ToArray();
+                    existItems = existItems.OrderBy(x => x.Amount).ToArray();
 
-                    var existItemsCount = existItemsPair.Length;
+                    int count = __instance.ItemDatas.Count;
                     for (int i = 0; i < existItemsCount; i++)
                     {
-                        __instance.ItemDatas[i] = existItemsPair[i].Key;
-                        __instance.ItemDataLinkers[i] = existItemsPair[i].Value;
+                        __instance.ItemDatas[i] = existItems[i];
                     }
                     for (int i = existItemsCount; i < count; i++)
                     {
                         __instance.ItemDatas[i] = null;
-                        __instance.ItemDataLinkers[i] = null;
                     }
                 }
 
